@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Android Kotlin Fundamentals</string>
+    <string name="app_name">DiceRoller</string>
+    <string name="roll_label">Roll</string>
+    <string name="count_up">Count Up</string>
+    <string name="hello_world_text">Hello World!</string>
+    <string name="reset">reset</string>
 </resources>
