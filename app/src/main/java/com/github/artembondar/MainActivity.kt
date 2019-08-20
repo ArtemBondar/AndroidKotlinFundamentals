@@ -3,49 +3,46 @@ package com.github.artembondar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var resultText: TextView
+    private lateinit var diceImage1 : ImageView
+    private lateinit var diceImage2 : ImageView
+    private lateinit var rollButton: Button
+    private lateinit var clearButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        resultText = findViewById(R.id.result_text)
-
-        val rollButton: Button = findViewById(R.id.roll_button)
-        val countUp: Button = findViewById(R.id.count_up_button)
-        val reset: Button = findViewById(R.id.reset_button)
+        diceImage1 = findViewById(R.id.dice_image_1)
+        diceImage2 = findViewById(R.id.dice_image_2)
+        rollButton = findViewById(R.id.roll_button)
+        clearButton = findViewById(R.id.clear_button)
 
         rollButton.setOnClickListener { rollDice() }
-        countUp.setOnClickListener { countUp() }
-        reset.setOnClickListener { reset() }
+        clearButton.setOnClickListener { clearDices() }
     }
 
     private fun rollDice() {
-        val random = Random().nextInt(6) + 1
-        resultText.text = random.toString()
+        diceImage1.setImageResource(getRandomDiceImage())
+        diceImage2.setImageResource(getRandomDiceImage())
     }
 
-    private fun countUp() {
-        val result: String = resultText.text.toString()
-        val countUpText: String
-        countUpText = if (result.equals(resources.getString(R.string.hello_world_text), ignoreCase = true)) {
-            "1"
-        } else if (!result.equals("6", ignoreCase = true)) {
-            (resultText.text.toString().toInt() + 1).toString()
-        } else {
-            resultText.text.toString()
-        }
-        resultText.text = countUpText
+    private fun clearDices() {
+        diceImage1.setImageResource(R.drawable.empty_dice)
+        diceImage2.setImageResource(R.drawable.empty_dice)
     }
 
-    private fun reset() {
-        val result: String = resultText.text.toString()
-        if (!result.equals(resources.getString(R.string.hello_world_text), ignoreCase = true)) {
-            resultText.text = "0"
+    private fun getRandomDiceImage() : Int {
+        return when (Random().nextInt(6) + 1) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
         }
     }
 }
